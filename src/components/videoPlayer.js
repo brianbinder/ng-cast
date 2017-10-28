@@ -1,32 +1,16 @@
 angular.module('video-player')
+  .controller('videoPlayerController', function() {
+    this.urlMaker = () => {
+      return 'https://www.youtube.com/embed/' + this.video.id.videoId;
+    };
+  })
 
   .component('videoPlayer', {
     bindings: {
       video: '<'
     },
 
-    controller: function() {
-      this.urlMaker = () => {
-        return 'https://www.youtube.com/embed/' + this.video.id.videoId;
-      };
-    },
+    controller: 'videoPlayerController',
 
-    template: `
-  <div ng-if="!$ctrl.video">Please wait</div>
-  <div
-  ng-if="$ctrl.video"
-  class="video-player">
-  <div class="embed-responsive embed-responsive-16by9">
-    <iframe
-    class="embed-responsive-item"
-    ng-src={{$ctrl.urlMaker()}}
-    allowFullScreen>
-    </iframe>
-  </div>
-  <div class="video-player-details">
-    <h3>{{$ctrl.video.snippet.title}}</h3>
-    <div>{{$ctrl.video.snippet.description}}</div>
-  </div>
-</div>
-  `
+    templateUrl: 'src/templates/videoPlayer.html'
   });

@@ -1,23 +1,16 @@
 angular.module('video-player')
+  .controller('searchController', function(youTube) {
+    this.searchResults = () => {
+      youTube.search(this.query, this.result);
+    };
+  })
 
   .component('search', {
     bindings: {
       result: '<'
     },
 
-    controller: function(youTube) {
-      this.searchResults = () => {
-        console.log(this.result);
-        youTube.search(this.query, this.result);
-      };
-    },
+    controller: 'searchController',
 
-    template: `
-    <div class="search-bar form-inline">
-    <input ng-model="$ctrl.query" class="form-control" type="text" />
-    <button ng-click="$ctrl.searchResults()" class="btn">
-      <span class="glyphicon glyphicon-search"></span>
-    </button>
-    </div>
-  `
+    templateUrl: 'src/templates/search.html'
   });
